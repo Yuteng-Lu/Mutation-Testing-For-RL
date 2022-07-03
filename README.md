@@ -17,4 +17,7 @@ In detail, the observation (states) consists of position of the car along the x-
 
 3. For CartPole
 
+The subjects in the environment are the a pole and the a cart. The pole is attached by an un-actuated joint to the cart, which moves along a frictionless track. The goal is that the cart does not leave the (-2.4, 2.4) range and the pole angle remains in the range (-12°, 12°). The two actions are to push the cart to left or right respectively. 
+
 4. For CarRacing
+
