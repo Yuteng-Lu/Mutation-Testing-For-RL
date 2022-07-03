@@ -11,7 +11,7 @@ In addition, we also give the specific code and detailed description of applying
 
 2. For MountainCar
 
-Unlike FrozenLake, MountainCar is an environment with continuous states. Therefore, in the process of construct test environment, in addition to directly transforming the original environment, another easier construction method is to change the agent's cognition of original environment (e.g., by mpdifying the reward rule).
+Unlike FrozenLake, MountainCar is an environment with continuous states. Therefore, in the process of constructing test environment, in addition to directly transforming the original environment, another easier construction method is to change the agent's cognition of original environment (e.g., by mpdifying the reward rule).
 
 In detail, the observation (states) consists of position of the car along the x-axis and velocity of the car. There are three discrete actions, namely, accelerate to the left, accelerate to the right and don’t accelerate. The goal is to reach the flag placed on top of the right hill as quickly as possible. Specifically, the flag is placed at 0.5 along the x-axis. 
 
