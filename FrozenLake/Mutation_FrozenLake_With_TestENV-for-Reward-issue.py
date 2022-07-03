@@ -256,7 +256,6 @@ class Agent:
             else: 
                 state = next_state
 
-#
     def learn_state_error(self):
         # one episode learning
         state = self.env.reset()
@@ -340,7 +339,7 @@ class Agent:
             else: 
                 state = next_state
 
-    def learn_reward_reduction(self):
+    def learn_reward_abnormal(self):
         # one episode learning
         state = self.env.reset()
         # self.env.render()
