@@ -256,6 +256,7 @@ class Agent:
             else: 
                 state = next_state
 
+#
     def learn_state_error(self):
         # one episode learning
         state = self.env.reset()
@@ -417,31 +418,28 @@ def main():
         env = wrappers.Monitor(env, './FrozenLake-v0', force=True)
 
     print("###### LEARNING #####")
-    AGENTs, BAD_AGENTs_RA, BAD_AGENTs_SL = [], [], []
+    AGENTs, BAD_AGENTs_RA, BAD_AGENTs_SC = [], [], []
     reward_total = 0.0
     for i in range(AGENT_AMOUNT):
         agent = Agent(env)
         bad_agent_ra = Agent(env)
-        bad_agent_sl = Agent(env)
+        bad_agent_sc = Agent(env)
         for j in range(LEARNING_COUNT):
             agent.learn()
             bad_agent_ra.learn_reward_abnormal()
-            # bad_agent_sl.learn_observation_loss()
 
         AGENTs.append(agent)
         BAD_AGENTs_RA.append(bad_agent_ra)
-        # BAD_AGENTs_SL.append(bad_agent_sl)
 
     print("###### TEST #####")
-    total_reward, total_reward_ra, total_reward_sl = 0.0, 0.0, 0.0
-    Record, Record_RA, Record_SL = [], [], []
+    total_reward, total_reward_ra, total_reward_sc = 0.0, 0.0, 0.0
+    Record, Record_RA, Record_SC = [], [], []
     threshold = 0.8
-    killed_amount_RA, killed_amount_SL = 0, 0
+    killed_amount_RA, killed_amount_SC = 0, 0
     for i in range(AGENT_AMOUNT):
-        total_reward, total_reward_ra, total_reward_sl = 0, 0, 0
+        total_reward, total_reward_ra, total_reward_sc = 0, 0, 0
         agent = AGENTs.pop(0)
         bad_agent_ra = BAD_AGENTs_RA.pop(0)
-        # bad_agent_sl = BAD_AGENTs_SL.pop(0)
         for i in range(TEST_COUNT):
             reward = agent.test()
             total_reward += reward
@@ -449,28 +447,18 @@ def main():
             reward_ra = bad_agent_ra.test()
             total_reward_ra += reward_ra
 
-            # reward_sl = bad_agent_sl.test()
-            # total_reward_sl += reward_sl
-
         if total_reward_ra / total_reward < threshold:
             killed_amount_RA += 1
 
-        if total_reward_sl / total_reward < threshold:
-            killed_amount_SL += 1
-
         Record.append(total_reward)
         Record_RA.append(total_reward_ra)
-        Record_SL.append(total_reward_sl)
 
     print(Record)
     print(Record_RA)
-    print(Record_SL)
     print(killed_amount_RA)
-    print(killed_amount_SL)
     
-    MS_r, MS_s = killed_amount_RA / AGENT_AMOUNT, killed_amount_SL / AGENT_AMOUNT
+    MS_r, MS_s = killed_amount_RA / AGENT_AMOUNT, killed_amount_SC / AGENT_AMOUNT
     print(MS_r)
-    print(MS_s)
 
 if __name__ == "__main__":
     main()
