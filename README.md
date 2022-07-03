@@ -21,3 +21,4 @@ The subjects in the environment are the a pole and the a cart. The pole is attac
 
 4. For CarRacing
 
+There are 732 tiles in the environment, and the goal of the car is to be able to hit all the tiles and avoid getting too far from the track. State consists of 96x96 pixels.
