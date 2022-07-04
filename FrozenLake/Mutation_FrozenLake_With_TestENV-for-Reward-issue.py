@@ -306,7 +306,6 @@ class Agent:
         # one episode learning
         state = self.env.reset()
         # self.env.render()
-
         for t in range(TURN_LIMIT):
             act = self.env.action_space.sample() # random
             next_state, reward, done, info = self.env.step(act)
@@ -425,7 +424,6 @@ def main():
 
     print("###### LEARNING #####")
     AGENTs, BAD_AGENTs_RA, BAD_AGENTs_SC = [], [], []
-    reward_total = 0.0
     for i in range(AGENT_AMOUNT):
         agent = Agent(env)
         bad_agent_ra = Agent(env)
