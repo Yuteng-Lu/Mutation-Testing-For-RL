@@ -192,9 +192,6 @@ def main():
 
     MS_r, MS_s = killed_amount_RA / AGENT_AMOUNT, killed_amount_SC / AGENT_AMOUNT
 
-    print(Record)
-    print(Record_RA)
-    print(Record_SC)
     print("Mutation Score for reward issue is %.2f, Mutation Score for state issue is %.2f" %(MS_r,MS_s))
 
 if __name__ == "__main__":
