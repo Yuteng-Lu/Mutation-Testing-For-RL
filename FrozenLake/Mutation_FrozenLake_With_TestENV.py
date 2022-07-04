@@ -336,7 +336,6 @@ def main():
     AGENTs = []
     BAD_AGENTs_R = []
     BAD_AGENTs_S = []
-    reward_total = 0.0
     for i in range(AGENT_AMOUNT):
         agent = Agent(env)
         bad_agent = Agent(env)
