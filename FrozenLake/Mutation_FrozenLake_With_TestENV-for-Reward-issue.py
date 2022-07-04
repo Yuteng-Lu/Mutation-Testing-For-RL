@@ -236,6 +236,7 @@ class Agent:
 
     def learn_q_fuzzing(self):
         # one episode learning
+        # q fuzzing in learning
         state = self.env.reset()
         # self.env.render()   
         for t in range(TURN_LIMIT):
