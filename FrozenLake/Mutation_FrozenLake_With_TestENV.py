@@ -204,28 +204,6 @@ class Agent:
             else: 
                 state = next_state
 
-    def learn_q_fuzzing(self):
-        # one episode learning
-        state = self.env.reset()
-        # self.env.render()   
-        for t in range(TURN_LIMIT):
-            act = self.env.action_space.sample() # random
-            next_state, reward, done, info = self.env.step(act)  
-            # Q <- Q + a(Q' - Q)
-            # <=> Q <- (1-a)Q + a(Q')
-            # Normal condition
-            q_next_max = np.max(self.q_val[next_state])  
-            self.q_val[state][act] = (1 - ALPHA) * self.q_val[state][act]\
-                + ALPHA * (reward + GAMMA * q_next_max)
-            if t > 40:
-                self.q_val[state][act] = ((1 - ALPHA) * self.q_val[state][act]\
-                                    + ALPHA * (reward + GAMMA * q_next_max)) * random.random() 
-            # self.env.render()
-            if done:
-                return reward
-            else: 
-                state = next_state
-
     def learn_state_error(self):
         # one episode learning
         state = self.env.reset()
@@ -342,44 +320,6 @@ class Agent:
             # Normal situation
             act = np.argmax(self.q_val[state])
             next_state, reward, done, info = self.env.step(act)
-            if done:
-                return reward
-            else:
-                state = next_state
-        return 0.0 # over limit
-
-    def test_action_loss(self):
-        state = self.env.reset()
-        for t in range(TURN_LIMIT):
-            # Actually, q_val is the agent.
-            # Action loss
-            Time_lost_action = 50
-            if t < Time_lost_action:
-                act = np.argmax(self.q_val[state])
-                next_state, reward, done, info = self.env.step(act)
-            if t == Time_lost_action:
-                act = np.argmax(self.q_val[state])
-                fixed_act = act
-                next_state, reward, done, info = self.env.step(fixed_act)
-            if t > Time_lost_action:
-                next_state, reward, done, info = self.env.step(fixed_act)
-            if done:
-                return reward
-            else:
-                state = next_state
-        return 0.0 # over limit
-
-    def test_action_shift(self):
-        state = self.env.reset()
-        for t in range(TURN_LIMIT):
-            # Actually, q_val is the agent.
-            # Action shift
-            if t > 70:
-                act = np.argmax(self.q_val[state])
-                next_state, reward, done, info = self.env.step(act + 1 if act < 3 else act -1)
-            else:
-                act = np.argmax(self.q_val[state])
-                next_state, reward, done, info = self.env.step(act)
             if done:
                 return reward
             else:
