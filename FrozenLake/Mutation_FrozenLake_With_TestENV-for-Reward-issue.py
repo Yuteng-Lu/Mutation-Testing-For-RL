@@ -256,7 +256,6 @@ class Agent:
             else: 
                 state = next_state
 
-#
     def learn_state_error(self):
         # one episode learning
         state = self.env.reset()
@@ -321,8 +320,8 @@ class Agent:
             if done:
                 return reward
             else: 
-
                 state = next_state
+                
     def learn_state_delay(self):
         # one episode learning
         state = self.env.reset()
@@ -330,31 +329,37 @@ class Agent:
         for t in range(TURN_LIMIT):
             act = self.env.action_space.sample() # random
             next_state, reward, done, info = self.env.step(act)  
-    
             q_next_max = np.max(self.q_val[next_state])  
             self.q_val[state][act] = (1 - ALPHA) * self.q_val[state][act]\
                                  + ALPHA * (reward + GAMMA * q_next_max) 
+            if t > 75:
+                self.q_val[state][delayed_act] = (1 - ALPHA) * self.q_val[state][delayed_act]\
+                                 + ALPHA * (reward + GAMMA * q_next_max)
             # self.env.render()
             if done:
                 return reward
             else: 
+                delayed_act = act
                 state = next_state
-
+                
     def learn_reward_abnormal(self):
+        # Starting from Reward Abnormal, Reward Reduction, Reward Increase and Reward Instability can be obtained. 
+        # The detailed implementations can be found in the Mutation Operators folder.
         # one episode learning
         state = self.env.reset()
         # self.env.render()
+        t = 0
         for t in range(TURN_LIMIT):
             act = self.env.action_space.sample() # random
             next_state, reward, done, info = self.env.step(act)
-            # Reward abnormal
+            # Reward Reduction
             q_next_max = np.max(self.q_val[next_state])  
-            if t < 8:
+            if t < 15:
                 self.q_val[state][act] = (1 - ALPHA) * self.q_val[state][act]\
                                      + ALPHA * (reward + GAMMA * q_next_max) 
             else:
                 self.q_val[state][act] = (1 - ALPHA) * self.q_val[state][act]\
-                                     + ALPHA * (-0.01 * reward + GAMMA * q_next_max) 
+                                     + ALPHA * (-1 * reward + GAMMA * q_next_max) 
             # self.env.render()
             if done:
                 return reward
