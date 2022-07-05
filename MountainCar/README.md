@@ -16,4 +16,8 @@ For the Acrobot environment, the goal is to apply torque on the drive joint to s
 
 There is a pendulum in the environment. The goal is to apply torque on the free end of pendulum to swing it into an upright position, and the episode terminates at 200 time steps. Therefore, its similarities to the MountainCar environment is the same as the above-mentioned three similarities.
 
-We can conclude that there is a class of environments that are characterized by: (1) the goal is to complete a certain task in a time period; (2) the goal is quantifiable; (3) the action space is discrete. Note that the key characteristics are the first two points.
+We can conclude that there is a class of environments that are characterized by: (1) the goal is to complete a certain task in a time period; (2) the goal is quantifiable; (3) the action space is discrete. Note that the key characteristics are the first two points. 
+
+MutationRL-MountainCar-Testing.py shows how to construct the test environment indirectly, and gives code to evaluate the performance of mutated and original agents. Specifically, by modifying the get_record() function, the agent's cognition of the environment can be changed, thereby indirectly constructing the test environment.
+
+MountainCarTE.py shows how to directly construct the test environment.
